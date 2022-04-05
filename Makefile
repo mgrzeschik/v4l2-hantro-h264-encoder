@@ -1,7 +1,5 @@
 # Tools
 
-CC = gcc
-
 # Project
 
 NAME = v4l2-hantro-h264-encoder
@@ -29,7 +27,7 @@ DEPS = $(SOURCES:.c=.d)
 
 # Compiler
 
-CFLAGS = -I. $(shell pkg-config --cflags cairo libudev) -Ofast
+CFLAGS = -I. $(shell pkg-config --cflags cairo libudev) -Ofast -I$(KERNEL_HEADERS)
 LDFLAGS = -lcairo -lm $(shell pkg-config --libs libudev)
 
 # Produced files
