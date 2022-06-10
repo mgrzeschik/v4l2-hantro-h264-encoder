@@ -17,6 +17,7 @@
 #include <linux/videodev2.h>
 #include <linux/media.h>
 
+#include <stdint.h>
 #include <media.h>
 #include <v4l2.h>
 #include <v4l2-encoder.h>

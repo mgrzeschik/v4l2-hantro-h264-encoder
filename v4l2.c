@@ -13,6 +13,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
+#include <stdint.h>
 
 #include <linux/videodev2.h>
 #include <linux/media.h>

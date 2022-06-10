@@ -12,6 +12,7 @@
 #include <fcntl.h>
 #include <errno.h>
 
+#include <stdint.h>
 #include <linux/videodev2.h>
 #include <linux/media.h>
 
