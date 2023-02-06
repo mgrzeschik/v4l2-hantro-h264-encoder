@@ -482,7 +482,7 @@ int v4l2_encoder_setup_defaults(struct v4l2_encoder *encoder)
 	if (ret)
 		return ret;
 
-	encoder->setup.gop_size = 10;
+	encoder->setup.gop_size = 1;
 
 	encoder->setup.qp_intra_delta = 2;
 	encoder->setup.qp_min = 11;
