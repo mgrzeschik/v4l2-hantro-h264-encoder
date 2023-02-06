@@ -401,6 +401,24 @@ int v4l2_encoder_h264_src_controls_setup(struct v4l2_encoder_h264_src_controls *
 					sizeof(h264_src_controls->encode_rc));
 	index++;
 
+	h264_src_controls->sps_control =
+		&h264_src_controls->controls[index];
+	v4l2_ext_control_setup_base(h264_src_controls->sps_control,
+				    V4L2_CID_STATELESS_H264_SPS);
+	v4l2_ext_control_setup_compound(h264_src_controls->sps_control,
+					&h264_src_controls->sps,
+					sizeof(h264_src_controls->sps));
+	index++;
+
+	h264_src_controls->pps_control =
+		&h264_src_controls->controls[index];
+	v4l2_ext_control_setup_base(h264_src_controls->pps_control,
+				    V4L2_CID_STATELESS_H264_PPS);
+	v4l2_ext_control_setup_compound(h264_src_controls->pps_control,
+					&h264_src_controls->pps,
+					sizeof(h264_src_controls->pps));
+	index++;
+
 	controls_count = index;
 
 	v4l2_ext_controls_setup(&h264_src_controls->ext_controls,

@@ -27,7 +27,7 @@ struct v4l2_encoder_buffer {
 
 struct v4l2_encoder_h264_src_controls {
 	struct v4l2_ext_controls ext_controls;
-	struct v4l2_ext_control controls[2];
+	struct v4l2_ext_control controls[4];
 	unsigned int controls_count;
 
 	struct v4l2_ctrl_h264_encode_params encode_params;
@@ -35,6 +35,12 @@ struct v4l2_encoder_h264_src_controls {
 
 	struct v4l2_ctrl_h264_encode_rc encode_rc;
 	struct v4l2_ext_control *encode_rc_control;
+
+	struct v4l2_ctrl_h264_sps sps;
+	struct v4l2_ext_control *sps_control;
+
+	struct v4l2_ctrl_h264_pps pps;
+	struct v4l2_ext_control *pps_control;
 };
 
 struct v4l2_encoder_h264_dst_controls {
@@ -102,9 +108,6 @@ struct v4l2_encoder {
 
 	struct v4l2_encoder_h264_src_controls h264_src_controls;
 	struct v4l2_encoder_h264_dst_controls h264_dst_controls;
-
-	struct v4l2_ctrl_h264_sps sps;
-	struct v4l2_ctrl_h264_pps pps;
 
 	struct h264_rate_control rc;
 	uint64_t reference_timestamp;

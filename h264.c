@@ -24,7 +24,9 @@
 static void bitstream_sps(struct bitstream *bitstream,
 			  struct v4l2_encoder *encoder)
 {
-	struct v4l2_ctrl_h264_sps *sps = &encoder->sps;
+	struct v4l2_ctrl_h264_sps *sps =
+		&encoder->h264_src_controls.sps;
+
 	bool frame_cropping_flag = false;
 
 	bitstream_reset(bitstream);
@@ -124,7 +126,8 @@ static void bitstream_sps(struct bitstream *bitstream,
 static void bitstream_pps(struct bitstream *bitstream,
 			  struct v4l2_encoder *encoder)
 {
-	struct v4l2_ctrl_h264_pps *pps = &encoder->pps;
+	struct v4l2_ctrl_h264_pps *pps =
+		&encoder->h264_src_controls.pps;
 
 	bitstream_reset(bitstream);
 
@@ -200,8 +203,10 @@ int h264_prepare(struct v4l2_encoder *encoder)
 		&encoder->h264_src_controls.encode_params;
 	struct v4l2_ctrl_h264_encode_rc *encode_rc =
 		&encoder->h264_src_controls.encode_rc;
-	struct v4l2_ctrl_h264_sps *sps = &encoder->sps;
-	struct v4l2_ctrl_h264_pps *pps = &encoder->pps;
+	struct v4l2_ctrl_h264_sps *sps =
+		&encoder->h264_src_controls.sps;
+	struct v4l2_ctrl_h264_pps *pps =
+		&encoder->h264_src_controls.pps;
 	unsigned int i;
 
 	/* Encode */
@@ -271,13 +276,19 @@ int h264_prepare(struct v4l2_encoder *encoder)
 	encode_rc->mad_threshold = 0;
 	encode_rc->mad_qp_delta = 0;
 
+	/* SPS: currently set once */
+	/* PPS: currently set once */
+
 	return 0;
 }
 
 int h264_setup(struct v4l2_encoder *encoder)
 {
-	struct v4l2_ctrl_h264_sps *sps = &encoder->sps;
-	struct v4l2_ctrl_h264_pps *pps = &encoder->pps;
+	struct v4l2_ctrl_h264_sps *sps =
+		&encoder->h264_src_controls.sps;
+	struct v4l2_ctrl_h264_pps *pps =
+		&encoder->h264_src_controls.pps;
+
 	struct bitstream *bitstream;
 	struct unit *unit;
 
