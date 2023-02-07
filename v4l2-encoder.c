@@ -833,11 +833,12 @@ static int media_device_probe(struct v4l2_encoder *encoder, struct udev *udev,
 	struct media_v2_link *sink_link;
 	struct media_v2_pad *source_pad;
 	struct media_v2_link *source_link;
-	const char *driver = "hantro-vpu";
+	const char *driver[] = { "hantro-vpu", "rkvpu", "" };
 	int media_fd = -1;
 	int video_fd = -1;
 	dev_t devnum;
 	int ret;
+	int i;
 
 	media_fd = open(path, O_RDWR);
 	if (media_fd < 0)
@@ -847,9 +848,10 @@ static int media_device_probe(struct v4l2_encoder *encoder, struct udev *udev,
 	if (ret)
 		goto error;
 
-	ret = strncmp(device_info.driver, driver, strlen(driver));
-	if (ret)
-		goto error;
+	for (i = 0; i < ARRAY_SIZE(driver); i++)
+		ret = strncmp(device_info.driver, driver[i], strlen(driver[i]));
+		if (ret)
+			goto error;
 
 	ret = media_topology_get(media_fd, &topology);
 	if (ret)
