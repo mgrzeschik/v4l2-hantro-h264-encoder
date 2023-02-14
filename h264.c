@@ -179,9 +179,9 @@ int h264_complete(struct v4l2_encoder *encoder)
 	encode_feedback = &encoder->h264_dst_controls.encode_feedback;
 	bytes_used = capture_buffer->buffer.m.planes[0].bytesused;
 
-	h264_rate_control_feedback(encoder, bytes_used,
-				   encode_feedback->rlc_count,
-				   encode_feedback->qp_sum);
+//	h264_rate_control_feedback(encoder, bytes_used,
+//				   encode_feedback->rlc_count,
+//				   encode_feedback->qp_sum);
 
 	/* Slice */
 
