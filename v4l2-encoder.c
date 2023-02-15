@@ -79,7 +79,7 @@ int v4l2_encoder_prepare(struct v4l2_encoder *encoder)
 	if (ret)
 		return ret;
 
-#define MANDELBROT
+#define RECTANGLE
 
 #ifdef MANDELBROT
 	draw_mandelbrot_zoom(&encoder->draw_mandelbrot);
