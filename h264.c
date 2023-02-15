@@ -247,6 +247,8 @@ int h264_prepare(struct v4l2_encoder *encoder)
 	encode_rc->qp_min = encoder->setup.qp_min;
 	encode_rc->qp_max = encoder->setup.qp_max;
 
+	encode_rc->target_bits = encoder->rc.bits_target;
+
 	/* Checkpoints */
 
 	/* Only apply checkpoints to intra frames. */
