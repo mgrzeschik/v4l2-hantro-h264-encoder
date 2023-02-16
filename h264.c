@@ -245,7 +245,7 @@ int h264_prepare(struct v4l2_encoder *encoder)
 
 	h264_rate_control_step(encoder);
 
-	encode_rc->qp = encoder->rc.qp;
+	encode_rc->qp = pps->pic_init_qp_minus26 + 26;//encoder->rc.qp;
 	encode_rc->qp_min = encoder->setup.qp_min;
 	encode_rc->qp_max = encoder->setup.qp_max;
 
@@ -300,6 +300,10 @@ int h264_setup(struct v4l2_encoder *encoder)
 	struct bitstream *bitstream;
 	struct unit *unit;
 
+	/* Rate control */
+
+	h264_rate_control_setup(encoder);
+
 	/* SPS */
 
 	sps->profile_idc = 100;
@@ -331,8 +335,13 @@ int h264_setup(struct v4l2_encoder *encoder)
 	/* XXX: fixed by hardware */
 	pps->weighted_bipred_idc = 0;
 
+	/* Rate Control */
+
+	h264_rate_control_step(encoder);
+
+	printf("%s, calculated: encoder->rc.qp:                      %d\n", __func__, encoder->rc.qp);
 	pps->chroma_qp_index_offset = 4;
-	pps->pic_init_qp_minus26 = 20;
+	pps->pic_init_qp_minus26 = encoder->rc.qp - 26;
 
 	/* Bitstream */
 
@@ -361,10 +370,6 @@ int h264_setup(struct v4l2_encoder *encoder)
 	unit_destroy(unit);
 
 	bitstream_destroy(bitstream);
-
-	/* Rate control */
-
-	h264_rate_control_setup(encoder);
 
 	return 0;
 }
