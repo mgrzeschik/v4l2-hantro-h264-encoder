@@ -133,9 +133,14 @@ int v4l2_encoder_prepare(struct v4l2_encoder *encoder)
 		return -1;
 	}
 
-	write(fd, output_buffer->mmap_data[0], width * height);
-	write(fd, output_buffer->mmap_data[1], width * height / 4);
-	write(fd, output_buffer->mmap_data[2], width * height / 4);
+	if (encoder->setup.format == V4L2_PIX_FMT_YUV420M) {
+		write(fd, output_buffer->mmap_data[0], width * height);
+		write(fd, output_buffer->mmap_data[1], width * height / 4);
+		write(fd, output_buffer->mmap_data[2], width * height / 4);
+	} else {
+		write(fd, output_buffer->mmap_data[0], width * height);
+		write(fd, output_buffer->mmap_data[1], width * height / 2);
+	}
 
 	close(fd);
 #endif
