@@ -217,6 +217,8 @@ int h264_prepare(struct v4l2_encoder *encoder)
 		encode_params->frame_num = 0;
 		encode_params->nalu_type = 5;
 		encode_params->nal_reference_idc = 1;
+		encode_params->no_output_of_prior_pics = 1;
+		encode_params->long_term_reference_flag = 1;
 	} else {
 		encode_params->slice_type = V4L2_H264_SLICE_TYPE_P;
 		encode_params->reference_ts = encoder->reference_timestamp;
