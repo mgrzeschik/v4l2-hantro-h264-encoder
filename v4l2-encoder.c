@@ -80,6 +80,7 @@ int v4l2_encoder_prepare(struct v4l2_encoder *encoder)
 		return ret;
 
 #define RECTANGLE
+//#define MANDELBROT
 
 #ifdef MANDELBROT
 	draw_mandelbrot_zoom(&encoder->draw_mandelbrot);
@@ -125,6 +126,8 @@ int v4l2_encoder_prepare(struct v4l2_encoder *encoder)
 		ret = rgb2nv12(encoder->draw_buffer,
 			       output_buffer->mmap_data[0],
 			       output_buffer->mmap_data[1]);
+
+#define OUTPUT_DUMP
 
 #ifdef OUTPUT_DUMP
 	fd = open("output.yuv",  O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -571,6 +574,7 @@ int v4l2_encoder_setup(struct v4l2_encoder *encoder)
 	height = encoder->setup.height;
 	format = encoder->setup.format;
 
+printf("width %d x height %d\n", width, height);
 	/* Capture format */
 
 	v4l2_format_setup_pixel(&encoder->capture_format, encoder->capture_type,
