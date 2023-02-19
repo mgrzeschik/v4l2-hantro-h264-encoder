@@ -345,6 +345,7 @@ int h264_setup(struct v4l2_encoder *encoder)
 	printf("%s, calculated: encoder->rc.qp:                      %d\n", __func__, encoder->rc.qp);
 	pps->chroma_qp_index_offset = 4;
 	pps->pic_init_qp_minus26 = encoder->rc.qp - 26;
+	pps->flags |= V4L2_H264_PPS_FLAG_TRANSFORM_8X8_MODE;
 
 	/* Bitstream */
 
