@@ -233,6 +233,7 @@ int h264_prepare(struct v4l2_encoder *encoder)
 
 	encode_params->pic_init_qp_minus26 = pps->pic_init_qp_minus26;
 	encode_params->chroma_qp_index_offset = pps->chroma_qp_index_offset;
+	encode_params->disable_deblocking_filter_idc = 1;
 
 	if (pps->flags & V4L2_H264_PPS_FLAG_ENTROPY_CODING_MODE)
 		encode_params->flags |= V4L2_H264_ENCODE_FLAG_ENTROPY_CODING_MODE;
@@ -315,12 +316,14 @@ int h264_setup(struct v4l2_encoder *encoder)
 	sps->pic_height_in_map_units_minus1 = encoder->setup.height_mbs - 1;
 
 	sps->max_num_ref_frames = 1;
+	sps->num_ref_frames_in_pic_order_cnt_cycle = 2;
 
 	// XXX: fixed by hardware
 	sps->pic_order_cnt_type = 2;
 
 	// XXX: fixed by hardware FOSHO
 	sps->log2_max_frame_num_minus4 = 12;
+	sps->log2_max_pic_order_cnt_lsb_minus4 = 0;
 
 	// XXX: fixed by hardware (at least constant in MPP)
 	sps->flags |= V4L2_H264_SPS_FLAG_DIRECT_8X8_INFERENCE;
