@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 	struct v4l2_encoder *encoder = NULL;
 	unsigned int width = 640;
 	unsigned int height = 480;
-	unsigned int frames = 10;
+	unsigned int frames = 60;
 	int ret;
 
 	encoder = calloc(1, sizeof(*encoder));

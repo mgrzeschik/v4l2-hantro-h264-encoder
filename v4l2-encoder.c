@@ -478,6 +478,7 @@ int v4l2_encoder_setup_defaults(struct v4l2_encoder *encoder)
 	if (ret)
 		return ret;
 
+	//ret = v4l2_encoder_setup_format(encoder, V4L2_PIX_FMT_YUV420M);
 	ret = v4l2_encoder_setup_format(encoder, V4L2_PIX_FMT_NV12M);
 	if (ret)
 		return ret;
@@ -486,7 +487,7 @@ int v4l2_encoder_setup_defaults(struct v4l2_encoder *encoder)
 	if (ret)
 		return ret;
 
-	ret = v4l2_encoder_setup_bitrate(encoder, 500000);
+	ret = v4l2_encoder_setup_bitrate(encoder, 500000 * 16);
 	if (ret)
 		return ret;
 
